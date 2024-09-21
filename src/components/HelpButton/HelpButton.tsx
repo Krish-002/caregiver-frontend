@@ -1,13 +1,14 @@
-// src/components/HelpButton/HelpButton.tsx
 import React from 'react';
-import axios from 'axios';
 
 const HelpButton: React.FC = () => {
   const handleClick = () => {
-    // Send a help request to the backend
-    axios.post('/api/help').then(() => {
-      alert('Help request sent!');
-    });
+    // Ask for confirmation before dialing 911
+    const confirmed = window.confirm('Are you sure you want to call 911?');
+    
+    if (confirmed) {
+      // Open the phone dialer with 911 pre-filled
+      window.location.href = 'tel:911';
+    }
   };
 
   return (
