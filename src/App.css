@@ -1,3 +1,18 @@
+/* src/App.css */
+body {
+  background-color: #f8f9fa;
+}
+
+h2 {
+  color: #343a40;
+}
+
+.navbar-brand {
+  font-weight: bold;
+}
+
+
+
 .App {
   text-align: center;
 }
