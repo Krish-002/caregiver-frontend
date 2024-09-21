@@ -1,0 +1,19 @@
+{
+  "name": "caregiver-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Krish-002/caregiver-backend.git"
+  },
+  "author": "Krish Bansal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Krish-002/caregiver-backend/issues"
+  },
+  "homepage": "https://github.com/Krish-002/caregiver-backend#readme"
+}
