@@ -1,0 +1,10 @@
+node_modules/
+
+# Environment variables
+.env
+
+# IDE settings
+.idea/
+
+# Logs
+*.log
