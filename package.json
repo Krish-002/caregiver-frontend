@@ -1,23 +1,9 @@
 {
-<<<<<<< HEAD
-  "name": "caregiver-backend",
+  "name": "caregiver-app-backend",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Krish-002/caregiver-backend.git"
-  },
-  "author": "Krish Bansal",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Krish-002/caregiver-backend/issues"
-  },
-  "homepage": "https://github.com/Krish-002/caregiver-backend#readme",
+  "private": true,
   "keywords": [],
-  "description": "",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -25,12 +11,7 @@
     "express": "^4.21.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.9.0",
-    "mongoose": "^8.6.3"
-=======
-  "name": "caregiver-app",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
+    "mongoose": "^8.6.3",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/material": "^6.1.1",
@@ -60,7 +41,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test && echo \"Error: no test specified\" && exit 1",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -80,6 +61,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
->>>>>>> b57dde5d9aa7c306546eebce71df662f43e8ab5b
   }
 }
