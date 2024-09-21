@@ -68,7 +68,6 @@ const Dashboard: React.FC = () => {
         </div>
       </nav>
 
-      <HelpButton />
 
       <div className="container mt-4">
         <Routes>
@@ -77,6 +76,7 @@ const Dashboard: React.FC = () => {
           <Route path="alerts" element={<Alerts />} />
         </Routes>
       </div>
+      <HelpButton />
     </div>
   );
 };
