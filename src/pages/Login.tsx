@@ -6,8 +6,9 @@ const Login: React.FC = () => {
   const { redirectToLoginPage } = useRedirectFunctions();
 
   const handleLogin = () => {
-    redirectToLoginPage({ postLoginRedirectUrl: window.location.href });
+    redirectToLoginPage({ postLoginRedirectUrl: "/dashboard" });
   };
+  
 
   return (
     <div className="container">
