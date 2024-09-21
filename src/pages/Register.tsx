@@ -1,13 +1,20 @@
 // src/pages/Register.tsx
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useRedirectFunctions } from '@propelauth/react';
 
 const Register: React.FC = () => {
-  // Similar to Login, with additional fields
+  const { redirectToSignupPage } = useRedirectFunctions();
+
+  const handleSignup = () => {
+    redirectToSignupPage({ postSignupRedirectUrl: window.location.href });
+  };
+
   return (
-    <div>
+    <div className="container">
       <h2>Register</h2>
-      {/* Registration form goes here */}
+      <button className="btn btn-primary" onClick={handleSignup}>
+        Signup
+      </button>
     </div>
   );
 };
