@@ -25,6 +25,7 @@ node_modules/
 
 # Environment variables
 .env
+caregiver_venv
 
 # IDE settings
 .idea/
