@@ -9,7 +9,7 @@ const app = express();
 // Connect to the database
 connectDB().catch(err => {
     console.error('Failed to connect to the database:', err);
-    process.exit(1);
+    process.exit(1);''
 });
 
 app.use(express.json({ extended: false }));
