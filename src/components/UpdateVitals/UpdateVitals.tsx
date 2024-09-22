@@ -1,12 +1,24 @@
 import React, { useState } from 'react';
 import localData from '/Users/krishbansal/2024/caregiver-app/src/Data/users.json'; // Import local JSON data
-import { saveAs } from 'file-saver'; // Used for saving the updated JSON file
+import axios from 'axios';
 
+// Define User and Vitals Interfaces
 interface Vitals {
   date: string;
   heartRate: number;
-  bloodPressure: string;
+  bloodPressure: { valA: number; valB: number };
   bloodSugar: number;
+}
+
+interface User {
+  email: string;
+  firstName: string;
+  lastName: string;
+  vitals: {
+    heartRate: { date: string; val: number }[];
+    bloodPressure: { date: string; valA: number; valB: number }[];
+    bloodSugar: { date: string; val: number }[];
+  };
 }
 
 interface UpdateVitalsProps {
@@ -16,17 +28,18 @@ interface UpdateVitalsProps {
 const UpdateVitals: React.FC<UpdateVitalsProps> = ({ email }) => {
   const [date, setDate] = useState<string>('');
   const [heartRate, setHeartRate] = useState<number>(0);
-  const [bloodPressure, setBloodPressure] = useState<string>('');
+  const [bloodPressureA, setBloodPressureA] = useState<number>(0);
+  const [bloodPressureB, setBloodPressureB] = useState<number>(0);
   const [bloodSugar, setBloodSugar] = useState<number>(0);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!email) {
       alert('No user email found!');
       return;
     }
 
     // Fetch the current user data from local JSON
-    const users = [...localData]; // Deep copy the local data
+    const users: User[] = [...localData];
     const user = users.find((user) => user.email === email);
 
     if (!user) {
@@ -38,29 +51,40 @@ const UpdateVitals: React.FC<UpdateVitalsProps> = ({ email }) => {
     const newVitals: Vitals = {
       date,
       heartRate,
-      bloodPressure,
+      bloodPressure: {
+        valA: bloodPressureA,
+        valB: bloodPressureB,
+      },
       bloodSugar,
     };
 
-    // Update the user's vitals
-    if (!user.vitals) {
-      user.vitals = {
-        heartRate: [],
-        bloodPressure: [],
-        bloodSugar: [],
-      };
-    }
-
+    // Push new values into the user's vitals arrays
     user.vitals.heartRate.push({ date, val: heartRate });
-    user.vitals.bloodPressure.push({ date, val: bloodPressure });
+    user.vitals.bloodPressure.push({
+      date,
+      valA: bloodPressureA,
+      valB: bloodPressureB,
+    });
+
     user.vitals.bloodSugar.push({ date, val: bloodSugar });
 
-    // Save the updated data to JSON file
-    const updatedData = JSON.stringify(users, null, 2);
-    const blob = new Blob([updatedData], { type: 'application/json' });
-    saveAs(blob, 'users.json'); // Save the updated JSON file (overwrite)
+    try {
+      // Send the updated data to the Flask backend
+      const response = await axios.post('http://127.0.0.1:5000/update-users', users, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-    alert('Vitals updated successfully!');
+      if (response.status === 200) {
+        alert('Vitals updated successfully!');
+      } else {
+        alert('Error updating vitals!');
+      }
+    } catch (error) {
+      console.error('Error updating file:', error);
+      alert('Error updating file!');
+    }
   };
 
   return (
@@ -89,14 +113,25 @@ const UpdateVitals: React.FC<UpdateVitalsProps> = ({ email }) => {
         />
       </div>
 
-      {/* Blood Pressure Input */}
+      {/* Blood Pressure A (Systolic) Input */}
       <div className="mb-3">
-        <label className="form-label">Blood Pressure (e.g., 120/80)</label>
+        <label className="form-label">Blood Pressure A (Systolic)</label>
         <input
-          type="text"
+          type="number"
           className="form-control"
-          value={bloodPressure}
-          onChange={(e) => setBloodPressure(e.target.value)}
+          value={bloodPressureA}
+          onChange={(e) => setBloodPressureA(Number(e.target.value))}
+        />
+      </div>
+
+      {/* Blood Pressure B (Diastolic) Input */}
+      <div className="mb-3">
+        <label className="form-label">Blood Pressure B (Diastolic)</label>
+        <input
+          type="number"
+          className="form-control"
+          value={bloodPressureB}
+          onChange={(e) => setBloodPressureB(Number(e.target.value))}
         />
       </div>
 

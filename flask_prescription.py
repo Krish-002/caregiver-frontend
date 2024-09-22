@@ -9,6 +9,23 @@ import re
 
 app = Flask(__name__)
 
+FILE_PATH = "/Users/krishbansal/2024/caregiver-app/src/Data/users.json"
+
+@app.route('/update-users', methods=['POST'])
+def update_users():
+    try:
+        # Get the JSON data from the request
+        updated_data = request.json
+
+        # Write the updated data to the users.json file
+        with open(FILE_PATH, 'w') as json_file:
+            json.dump(updated_data, json_file, indent=2)
+
+        return jsonify({"message": "File updated successfully!"}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
 # Allow only specific origins
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 

@@ -1,33 +1,119 @@
 [
-    {
-      "email": "krishbansal811@gmail.com",
-      "firstName": "John",
-      "lastName": "Doe",
-      "age": 30,
-      "weight": 70,
-      "vitals": {
-        "heartRate": [
-          { "date": "2023-09-21T10:00", "val": 72 }
-        ],
-        "bloodPressure": [
-          { "date": "2023-09-21T10:00", "val": "120/80" }
-        ],
-        "bloodSugar": [
-          { "date": "2023-09-21T10:00", "val": 100 }
-        ]
-      }
-    },
-    {
-      "email": "user2@example.com",
-      "firstName": "Jane",
-      "lastName": "Doe",
-      "age": 28,
-      "weight": 65,
-      "vitals": {
-        "heartRate": [],
-        "bloodPressure": [],
-        "bloodSugar": []
-      }
+  {
+    "email": "krishbansal811@gmail.com",
+    "firstName": "John",
+    "lastName": "Doe",
+    "vitals": {
+      "heartRate": [
+        {
+          "date": "2023-09-21T08:30",
+          "val": 72
+        },
+        {
+          "date": "2023-09-22T09:00",
+          "val": 75
+        },
+        {
+          "date": "2024-09-21T10:24",
+          "val": 82
+        },
+        {
+          "date": "2024-09-21T10:24",
+          "val": 82
+        },
+        {
+          "date": "2024-09-21T10:24",
+          "val": 82
+        }
+      ],
+      "bloodPressure": [
+        {
+          "date": "2023-09-21T08:30",
+          "valA": 120,
+          "valB": 80
+        },
+        {
+          "date": "2023-09-22T09:00",
+          "valA": 118,
+          "valB": 78
+        },
+        {
+          "date": "2024-09-21T10:24",
+          "valA": 130,
+          "valB": 82
+        },
+        {
+          "date": "2024-09-21T10:24",
+          "valA": 130,
+          "valB": 82
+        },
+        {
+          "date": "2024-09-21T10:24",
+          "valA": 130,
+          "valB": 82
+        }
+      ],
+      "bloodSugar": [
+        {
+          "date": "2023-09-21T08:30",
+          "val": 95
+        },
+        {
+          "date": "2023-09-22T09:00",
+          "val": 100
+        },
+        {
+          "date": "2024-09-21T10:24",
+          "val": 100
+        },
+        {
+          "date": "2024-09-21T10:24",
+          "val": 100
+        },
+        {
+          "date": "2024-09-21T10:24",
+          "val": 100
+        }
+      ]
     }
-  ]
-  
+  },
+  {
+    "email": "jane.smith@example.com",
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "vitals": {
+      "heartRate": [
+        {
+          "date": "2023-09-21T07:30",
+          "val": 68
+        },
+        {
+          "date": "2023-09-22T08:00",
+          "val": 70
+        }
+      ],
+      "bloodPressure": [
+        {
+          "date": "2023-09-21T07:30",
+          "valA": 125,
+          "valB": 82
+        },
+        {
+          "date": "2023-09-22T08:00",
+          "valA": 123,
+          "valB": 80
+        }
+      ],
+      "bloodSugar": [
+        {
+          "date": "2023-09-21T07:30",
+          "val": 90
+        },
+        {
+          "date": "2023-09-22T08:00",
+          "val": 94
+        }
+      ]
+    }
+  }
+]
