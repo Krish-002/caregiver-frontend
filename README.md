@@ -5,7 +5,7 @@ A new app built for PennApps and for our community of care.
 Welcome to MedMate! This project is built with love for the at home caretakers of our society.
 
 ## Commercial
-<video src='https://www.youtube.com/watch?v=SjU1X__VzxA' width=180/>
+<video src='https://www.youtube.com/watch?v=SjU1X__VzxA' width=180></video>
 
 ## What it does
 
