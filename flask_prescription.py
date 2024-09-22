@@ -9,7 +9,7 @@ import re
 
 app = Flask(__name__)
 
-FILE_PATH = "/Users/krishbansal/2024/caregiver-app/src/Data/users.json"
+FILE_PATH = "/Users/maxencegilloteaux/ComputerScience/Personal/Hackathons/caregiver/src/Data/users.json"
 
 @app.route('/update-users', methods=['POST'])
 def update_users():

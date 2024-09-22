@@ -1,29 +1,7 @@
 import React, { useState } from 'react';
-import localData from '/Users/krishbansal/2024/caregiver-app/src/Data/users.json'; // Import local JSON data
+import localData from '/Users/maxencegilloteaux/ComputerScience/Personal/Hackathons/caregiver/src/Data/users.json'; // Import local JSON data
+import { Vitals, User, UpdateVitalsProps } from '../types';
 import axios from 'axios';
-
-// Define User and Vitals Interfaces
-interface Vitals {
-  date: string;
-  heartRate: number;
-  bloodPressure: { valA: number; valB: number };
-  bloodSugar: number;
-}
-
-interface User {
-  email: string;
-  firstName: string;
-  lastName: string;
-  vitals: {
-    heartRate: { date: string; val: number }[];
-    bloodPressure: { date: string; valA: number; valB: number }[];
-    bloodSugar: { date: string; val: number }[];
-  };
-}
-
-interface UpdateVitalsProps {
-  email: string | null; // Email passed as prop from the Dashboard
-}
 
 const UpdateVitals: React.FC<UpdateVitalsProps> = ({ email }) => {
   const [date, setDate] = useState<string>('');
@@ -38,7 +16,6 @@ const UpdateVitals: React.FC<UpdateVitalsProps> = ({ email }) => {
       return;
     }
 
-    // Fetch the current user data from local JSON
     const users: User[] = [...localData];
     const user = users.find((user) => user.email === email);
 
@@ -67,7 +44,7 @@ const UpdateVitals: React.FC<UpdateVitalsProps> = ({ email }) => {
     });
 
     user.vitals.bloodSugar.push({ date, val: bloodSugar });
-
+    console.log(user)
     try {
       // Send the updated data to the Flask backend
       const response = await axios.post('http://127.0.0.1:5000/update-users', users, {
