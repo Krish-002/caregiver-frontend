@@ -1,0 +1,33 @@
+[
+    {
+      "email": "krishbansal811@gmail.com",
+      "firstName": "John",
+      "lastName": "Doe",
+      "age": 30,
+      "weight": 70,
+      "vitals": {
+        "heartRate": [
+          { "date": "2023-09-21T10:00", "val": 72 }
+        ],
+        "bloodPressure": [
+          { "date": "2023-09-21T10:00", "val": "120/80" }
+        ],
+        "bloodSugar": [
+          { "date": "2023-09-21T10:00", "val": 100 }
+        ]
+      }
+    },
+    {
+      "email": "user2@example.com",
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "age": 28,
+      "weight": 65,
+      "vitals": {
+        "heartRate": [],
+        "bloodPressure": [],
+        "bloodSugar": []
+      }
+    }
+  ]
+  

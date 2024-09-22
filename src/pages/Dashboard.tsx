@@ -1,8 +1,8 @@
 import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import CalendarComponent from '../components/Calender/Calender';
-import HealthTracker from '../components/HealthTracker/HealthTracker';
-import Alerts from '../components/Alerts/Alerts';
+import UpdateVitals from '../components/UpdateVitals/UpdateVitals'; // Replace HealthTracker with UpdateVitals
+import Alerts from '../components/Profile/Profile';
 import HelpButton from '../components/HelpButton/HelpButton';
 import { useAuthInfo, useLogoutFunction } from '@propelauth/react';
 
@@ -17,6 +17,8 @@ const Dashboard: React.FC = () => {
   if (!isLoggedIn) {
     return <div>You are not logged in. Please login to access the dashboard.</div>;
   }
+
+  console.log(user);
 
   return (
     <div>
@@ -44,13 +46,13 @@ const Dashboard: React.FC = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="health-tracker">
-                  Health Tracker
-                </Link>
+                <Link className="nav-link" to="update-vitals">
+                  Update Vitals
+                </Link> {/* Replace the link for health-tracker */}
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="alerts">
-                  Alerts
+                  Profile
                 </Link>
               </li>
             </ul>
@@ -68,11 +70,10 @@ const Dashboard: React.FC = () => {
         </div>
       </nav>
 
-
       <div className="container mt-4">
         <Routes>
           <Route path="calendar" element={<CalendarComponent />} />
-          <Route path="health-tracker" element={<HealthTracker />} />
+          <Route path="update-vitals" element={<UpdateVitals email={user?.email} />} /> {/* Pass the email as a prop */}
           <Route path="alerts" element={<Alerts />} />
         </Routes>
       </div>
