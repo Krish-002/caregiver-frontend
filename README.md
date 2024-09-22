@@ -1,11 +1,6 @@
- __  __              _   __  __            _             
-|  \/  |   ___    __| | |  \/  |  __ _    | |_     ___   
-| |\/| |  / -_)  / _` | | |\/| | / _` |   |  _|   / -_)  
-|_|__|_|  \___|  \__,_| |_|__|_| \__,_|   _\__|   \___|  
-_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""| 
-"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-' 
+# MedMate
 
-# Readme for MedMate, a new app built for PennApps and for our community of care.
+A new app built for PennApps and for our community of care.
 
 Welcome to MedMate! This project is built with love for the at home caretakers of our society.
 
