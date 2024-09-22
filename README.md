@@ -4,7 +4,7 @@ A new app built for PennApps and for our community of care.
 
 Welcome to MedMate! This project is built with love for the at home caretakers of our society.
 
-What it does
+## What it does
 
 We have centralized the logistics of at-home care, with patient safety and caretaker mindfulness as our core.
 
@@ -15,7 +15,7 @@ Our app is a one stop shop for all logistics in home care, compiling FDA data wi
 3. No more worrying about refills! Simply scan your prescription, and our app will ensure you won't run out of doses by reminding you when to get a refill of a prescription, keeping your mind at ease.
 4. Security-minded: All data is anonymized when looking to AI for warnings, insights, and more. We have Propelauth authentication securing your account.
 
-How we built it
+## How we built it
 
 Frontend - React to build the website/mobile app, and pull in information from the backend. It was used to build the calendar, the 911 calling button, and other interfaces to present to the user.
 
