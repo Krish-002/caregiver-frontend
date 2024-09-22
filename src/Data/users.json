@@ -2,7 +2,9 @@
   {
     "email": "krishbansal811@gmail.com",
     "firstName": "Krish",
-    "lastName": "Bansal",
+    "lastName": "Panda",
+    "weight": 180,
+    "age": 20,
     "vitals": {
       "heartRate": [
         {
@@ -18,16 +20,8 @@
           "val": 82
         },
         {
-          "date": "2024-09-21T10:24",
-          "val": 82
-        },
-        {
-          "date": "2024-09-21T10:24",
-          "val": 82
-        },
-        {
-          "date": "2024-09-21T13:58",
-          "val": 0
+          "date": "2024-09-30T06:29",
+          "val": 200
         }
       ],
       "bloodPressure": [
@@ -47,19 +41,9 @@
           "valB": 82
         },
         {
-          "date": "2024-09-21T10:24",
-          "valA": 130,
-          "valB": 82
-        },
-        {
-          "date": "2024-09-21T10:24",
-          "valA": 130,
-          "valB": 82
-        },
-        {
-          "date": "2024-09-21T13:58",
-          "valA": 0,
-          "valB": 0
+          "date": "2024-09-30T06:29",
+          "valA": 187,
+          "valB": 195
         }
       ],
       "bloodSugar": [
@@ -76,57 +60,108 @@
           "val": 100
         },
         {
-          "date": "2024-09-21T10:24",
-          "val": 100
-        },
-        {
-          "date": "2024-09-21T10:24",
-          "val": 100
-        },
-        {
-          "date": "2024-09-21T13:58",
-          "val": 0
+          "date": "2024-09-30T06:29",
+          "val": 400
         }
       ]
-    }
-  },
-  {
-    "email": "jane.smith@example.com",
-    "firstName": "Jane",
-    "lastName": "Smith",
-    "vitals": {
-      "heartRate": [
-        {
-          "date": "2023-09-21T07:30",
-          "val": 68
-        },
-        {
-          "date": "2023-09-22T08:00",
-          "val": 70
-        }
-      ],
-      "bloodPressure": [
-        {
-          "date": "2023-09-21T07:30",
-          "valA": 125,
-          "valB": 82
-        },
-        {
-          "date": "2023-09-22T08:00",
-          "valA": 123,
-          "valB": 80
-        }
-      ],
-      "bloodSugar": [
-        {
-          "date": "2023-09-21T07:30",
-          "val": 90
-        },
-        {
-          "date": "2023-09-22T08:00",
-          "val": 94
-        }
-      ]
-    }
+    },
+    "medications": [
+      {
+        "drug_name": "Aspirin",
+        "dosageTime": "2024-09-22T21:00:00",
+        "strength": "500mg",
+        "completed": false
+      },
+      {
+        "drug_name": "Ibuprofen",
+        "dosageTime": "2024-09-22T21:00:00",
+        "strength": "200mg",
+        "completed": false
+      },
+      {
+        "drug_name": "Aspirin",
+        "dosageTime": "2024-09-23T21:00:00",
+        "strength": "500mg",
+        "completed": true
+      },
+      {
+        "drug_name": "Metformin",
+        "dosageTime": "2024-09-22T12:00:00.000Z",
+        "strength": "500mg",
+        "completed": false
+      },
+      {
+        "drug_name": "Metformin",
+        "dosageTime": "2024-09-22T16:00:00.000Z",
+        "strength": "500mg",
+        "completed": false
+      },
+      {
+        "drug_name": "Metformin",
+        "dosageTime": "2024-09-22T20:00:00.000Z",
+        "strength": "500mg",
+        "completed": false
+      },
+      {
+        "drug_name": "Metformin",
+        "dosageTime": "2024-09-23T00:00:00.000Z",
+        "strength": "500mg",
+        "completed": false
+      },
+      {
+        "drug_name": "Metformin",
+        "dosageTime": "2024-09-23T12:00:00.000Z",
+        "strength": "500mg",
+        "completed": false
+      },
+      {
+        "drug_name": "Metformin",
+        "dosageTime": "2024-09-23T16:00:00.000Z",
+        "strength": "500mg",
+        "completed": false
+      },
+      {
+        "drug_name": "Metformin",
+        "dosageTime": "2024-09-23T20:00:00.000Z",
+        "strength": "500mg",
+        "completed": false
+      },
+      {
+        "drug_name": "Metformin",
+        "dosageTime": "2024-09-24T00:00:00.000Z",
+        "strength": "500mg",
+        "completed": false
+      },
+      {
+        "drug_name": "Metformin",
+        "strength": "500mg",
+        "dosageTime": "2024-09-22T08:00:00",
+        "completed": false
+      },
+      {
+        "drug_name": "Metformin",
+        "strength": "500mg",
+        "dosageTime": "2024-09-22T20:00:00",
+        "completed": false
+      },
+      {
+        "drug_name": "Metformin",
+        "strength": "500mg",
+        "dosageTime": "2024-09-23T08:00:00",
+        "completed": false
+      },
+      {
+        "drug_name": "Metformin",
+        "strength": "500mg",
+        "dosageTime": "2024-09-23T20:00:00",
+        "completed": false
+      },
+      {
+        "drug_name": "Metformin",
+        "strength": "500mg",
+        "dosageTime": "2024-09-24T08:00:00",
+        "completed": false
+      }
+    ]
   }
 ]

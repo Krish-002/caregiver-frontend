@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AWS from 'aws-sdk';
+import localData from '/Users/krishbansal/2024/caregiver-app/src/Data/users.json'; // Adjust this path to your actual JSON file
+import { User, Medication } from '../Types/types';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
 // Configure AWS SDK with environment variables
@@ -13,11 +15,30 @@ AWS.config.update({
 const s3 = new AWS.S3();
 
 const MedList: React.FC = () => {
-  const [tasks, setTasks] = useState<any[]>([]); // Store medication tasks
+  const [tasks, setTasks] = useState<Medication[]>([]); // Store medication tasks
   const [file, setFile] = useState<File | null>(null); // Store selected file
   const [loading, setLoading] = useState<boolean>(false);
   const [warnings, setWarnings] = useState<string | null>(null); // Store warnings to show popup
   const [showAlert, setShowAlert] = useState<boolean>(false); // To control popup visibility
+  const [email] = useState<string | null>('krishbansal811@gmail.com'); // Assuming email comes from user info
+
+  // Load medications when the page loads
+  useEffect(() => {
+    loadUserMedications();
+    requestNotificationPermission();
+  }, []);
+
+  // Function to load the user's medications from the local data
+  const loadUserMedications = () => {
+    const users: User[] = [...localData]; // Assuming localData is an array of users
+    const user = users.find((user) => user.email === email);
+
+    if (user) {
+      setTasks(user.medications); // Set the user's medications in the state
+    } else {
+      console.error('User not found.');
+    }
+  };
 
   // Function to request permission for notifications
   const requestNotificationPermission = () => {
@@ -31,7 +52,7 @@ const MedList: React.FC = () => {
   };
 
   // Set up notifications for each task
-  const scheduleNotifications = (tasks: any[]) => {
+  const scheduleNotifications = (tasks: Medication[]) => {
     tasks.forEach((task) => {
       const now = new Date();
       const taskTime = new Date(task.dosageTime);
@@ -48,10 +69,9 @@ const MedList: React.FC = () => {
   };
 
   // Function to show notification
-  const showNotification = (drugName: string, dosageTime: Date) => {
+  const showNotification = (drugName: string, dosageTime: string) => {
     new Notification(`Reminder: Time to take ${drugName}`, {
-      body: `You have a scheduled dosage of ${drugName} at ${dosageTime.toLocaleTimeString()}`,
-      icon: '/path-to-icon.png', // You can add an icon if desired
+      body: `You have a scheduled dosage of ${drugName} at ${new Date(dosageTime).toLocaleTimeString()}`,
     });
   };
 
@@ -87,6 +107,7 @@ const MedList: React.FC = () => {
 
       // Get the prescription data from the response
       const prescriptionData = response.data.cleaned_info;
+      console.log('Prescription Data:', prescriptionData);
 
       // Set the warnings for alert popup
       setWarnings(prescriptionData.shortened_warnings);
@@ -94,6 +115,11 @@ const MedList: React.FC = () => {
 
       // Create tasks from the prescription data
       const newTasks = generateMedicationTasks(prescriptionData);
+      console.log('New Tasks:', newTasks);
+
+      // Update the user's medication list
+      updateUserMedications(newTasks);
+
       setTasks((prevTasks) => [...prevTasks, ...newTasks]); // Update tasks with new tasks
       setLoading(false);
 
@@ -106,18 +132,16 @@ const MedList: React.FC = () => {
   };
 
   // Function to generate tasks from the prescription data
-  const generateMedicationTasks = (prescriptionData: any) => {
+  const generateMedicationTasks = (prescriptionData: any): Medication[] => {
     const { drug_name, strength, dosage_schedule } = prescriptionData;
     const dosageTimes = JSON.parse(dosage_schedule); // Convert to array
 
     // Generate tasks based on dosage schedule
-    const tasks = dosageTimes.map((dosageTime: string) => {
-      const dosageDate = new Date(dosageTime); // Convert string to Date object
+    const tasks: Medication[] = dosageTimes.map((dosageTime: string) => {
       return {
-        id: dosageTime, // Use dosageTime as a unique identifier
         drug_name,
-        strength,
-        dosageTime: dosageDate,
+        strength, // Replace 'dose' with 'strength'
+        dosageTime, // Assuming dosageTime is in ISO format
         completed: false,
       };
     });
@@ -125,11 +149,41 @@ const MedList: React.FC = () => {
     return tasks;
   };
 
+  // Function to update the user's medications in the JSON file
+  const updateUserMedications = (newTasks: Medication[]) => {
+    const users: User[] = [...localData]; // Assuming localData is an array of users
+    const user = users.find((user) => user.email === email);
+
+    if (user) {
+      user.medications = [...user.medications, ...newTasks]; // Append new medications
+
+      // Send the updated data to the backend
+      axios
+        .post('http://127.0.0.1:5000/update-users', users, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            console.log('User medication updated successfully.');
+          } else {
+            console.error('Error updating medication list.');
+          }
+        })
+        .catch((error) => {
+          console.error('Error updating user data:', error);
+        });
+    } else {
+      console.error('User not found.');
+    }
+  };
+
   // Function to handle task completion toggle
-  const handleTaskToggle = (taskId: string) => {
+  const handleTaskToggle = (taskDosageTime: string) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) => {
-        if (task.id === taskId) {
+        if (task.dosageTime === taskDosageTime) {
           return { ...task, completed: !task.completed }; // Toggle the 'completed' state
         }
         return task;
@@ -137,10 +191,13 @@ const MedList: React.FC = () => {
     );
   };
 
+
   // Sort tasks by completed status and dosageTime
   const sortedTasks = [...tasks].sort((a, b) => {
+    const aTime = new Date(a.dosageTime).getTime();
+    const bTime = new Date(b.dosageTime).getTime();
     if (a.completed === b.completed) {
-      return a.dosageTime.getTime() - b.dosageTime.getTime();
+      return aTime - bTime;
     }
     return a.completed ? 1 : -1;
   });
@@ -149,10 +206,6 @@ const MedList: React.FC = () => {
   const handleCloseAlert = () => {
     setShowAlert(false);
   };
-
-  useEffect(() => {
-    requestNotificationPermission();
-  }, []);
 
   return (
     <div className="container mt-4">
@@ -207,7 +260,7 @@ const MedList: React.FC = () => {
       <ul className="list-group mt-4">
         {sortedTasks.map((task) => (
           <li
-            key={task.id}
+            key={task.dosageTime} // Use dosageTime as a key or add a unique id if possible
             className={`list-group-item d-flex justify-content-between align-items-center ${
               task.completed ? 'bg-light text-muted' : ''
             }`}
@@ -217,17 +270,17 @@ const MedList: React.FC = () => {
                 className="form-check-input"
                 type="checkbox"
                 checked={task.completed}
-                onChange={() => handleTaskToggle(task.id)}
-                id={`task-${task.id}`}
+                onChange={() => handleTaskToggle(task.dosageTime)}
+                id={`task-${task.dosageTime}`}
               />
               <label
                 className={`form-check-label ms-2 ${
                   task.completed ? 'text-decoration-line-through' : ''
                 }`}
-                htmlFor={`task-${task.id}`}
+                htmlFor={`task-${task.dosageTime}`}
               >
                 <strong>{task.drug_name}</strong> ({task.strength}) at{' '}
-                {task.dosageTime.toLocaleString()}
+                {new Date(task.dosageTime).toLocaleString()}
               </label>
             </div>
           </li>

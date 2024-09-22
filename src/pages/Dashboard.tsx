@@ -158,7 +158,7 @@ const Dashboard: React.FC = () => {
           <Route path="charts" element={<Charts userData={userData} />} />
           <Route path="medlist" element={<MedList />} />
           <Route path="update-vitals" element={<UpdateVitals email={user?.email} />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="profile" element={<Profile email={user?.email}/>} />
         </Routes>
       </div>
     </div>
