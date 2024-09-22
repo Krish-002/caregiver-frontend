@@ -1,8 +1,8 @@
 [
   {
     "email": "krishbansal811@gmail.com",
-    "firstName": "John",
-    "lastName": "Doe",
+    "firstName": "Krish",
+    "lastName": "Bansal",
     "vitals": {
       "heartRate": [
         {
@@ -24,6 +24,10 @@
         {
           "date": "2024-09-21T10:24",
           "val": 82
+        },
+        {
+          "date": "2024-09-21T13:58",
+          "val": 0
         }
       ],
       "bloodPressure": [
@@ -51,6 +55,11 @@
           "date": "2024-09-21T10:24",
           "valA": 130,
           "valB": 82
+        },
+        {
+          "date": "2024-09-21T13:58",
+          "valA": 0,
+          "valB": 0
         }
       ],
       "bloodSugar": [
@@ -73,6 +82,10 @@
         {
           "date": "2024-09-21T10:24",
           "val": 100
+        },
+        {
+          "date": "2024-09-21T13:58",
+          "val": 0
         }
       ]
     }

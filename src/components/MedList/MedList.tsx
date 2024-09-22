@@ -12,7 +12,7 @@ AWS.config.update({
 
 const s3 = new AWS.S3();
 
-const MedicationTodoList: React.FC = () => {
+const MedList: React.FC = () => {
   const [tasks, setTasks] = useState<any[]>([]); // Store medication tasks
   const [file, setFile] = useState<File | null>(null); // Store selected file
   const [loading, setLoading] = useState<boolean>(false);
@@ -203,4 +203,4 @@ const MedicationTodoList: React.FC = () => {
   );
 };
 
-export default MedicationTodoList;
+export default MedList;

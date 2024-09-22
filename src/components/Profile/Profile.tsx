@@ -1,4 +1,4 @@
-export default function App() {
+export default function Profile() {
   return (
     <div>
       <h1>React App</h1>
@@ -6,3 +6,4 @@ export default function App() {
     </div>
   );
 }
+
