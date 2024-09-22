@@ -4,6 +4,9 @@ A new app built for PennApps and for our community of care.
 
 Welcome to MedMate! This project is built with love for the at home caretakers of our society.
 
+## Commercial
+<video src='https://www.youtube.com/watch?v=SjU1X__VzxA' width=180/>
+
 ## What it does
 
 We have centralized the logistics of at-home care, with patient safety and caretaker mindfulness as our core.
