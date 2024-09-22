@@ -6,6 +6,7 @@ import requests
 from io import BytesIO
 import json
 import re
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -131,6 +132,7 @@ def shorten_warnings(warnings):
 
 # New Functionality: Generate Dosage Schedule with Tune AI
 def generate_dosage_schedule(instructions, quantity):
+    date_today = datetime.now()
     url = "https://proxy.tune.app/chat/completions"
     headers = {
         "Authorization": "sk-tune-d3InGaOtdKOkyTC3O7zIrlPURLoSGbVqWw5",
@@ -141,7 +143,7 @@ def generate_dosage_schedule(instructions, quantity):
         "messages": [
             {
                 "role": "user",
-                "content": f"Given this instruction from a prescription, '{instructions}', and avoiding sleeping times from 10pm to 8am, list times in an JAVASCRIPT array of strings surounded by square brackets, seperated by commas, with datetime format when to take this medication. The quantity is {quantity}. When the quantity reaches zero, append another time, the day after. Return only the array of dates, with NO commentary. Do not code, do the calculations and return only the list of dates, with commas between the times. rounded to the nearest hour."
+                "content": f"Given this instruction from a prescription, '{instructions}', and avoiding sleeping times from 10pm to 8am, list times in an JAVASCRIPT array of strings surounded by square brackets, seperated by commas, with datetime format when to take this medication. The quantity is {quantity}. When the quantity reaches zero, append another time, the day after. Return only the array of dates, with NO commentary. Start the schedule following the time and date today which is {date_today} Do not code, do the calculations and return only the list of dates, with commas between the times. rounded to the nearest hour. DO NOT RETURN ANYTHING APART FROM THE JSON."
             }
         ],
         "model": "openai/gpt-4o",

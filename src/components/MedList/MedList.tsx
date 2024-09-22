@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AWS from 'aws-sdk';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
@@ -18,6 +18,42 @@ const MedList: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [warnings, setWarnings] = useState<string | null>(null); // Store warnings to show popup
   const [showAlert, setShowAlert] = useState<boolean>(false); // To control popup visibility
+
+  // Function to request permission for notifications
+  const requestNotificationPermission = () => {
+    if (Notification.permission !== 'granted') {
+      Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          console.log('Notification permission granted');
+        }
+      });
+    }
+  };
+
+  // Set up notifications for each task
+  const scheduleNotifications = (tasks: any[]) => {
+    tasks.forEach((task) => {
+      const now = new Date();
+      const taskTime = new Date(task.dosageTime);
+      const notificationTime = new Date(taskTime.getTime() - 30 * 60 * 1000); // 30 minutes before
+
+      const timeUntilNotification = notificationTime.getTime() - now.getTime();
+
+      if (timeUntilNotification > 0) {
+        setTimeout(() => {
+          showNotification(task.drug_name, task.dosageTime);
+        }, timeUntilNotification);
+      }
+    });
+  };
+
+  // Function to show notification
+  const showNotification = (drugName: string, dosageTime: Date) => {
+    new Notification(`Reminder: Time to take ${drugName}`, {
+      body: `You have a scheduled dosage of ${drugName} at ${dosageTime.toLocaleTimeString()}`,
+      icon: '/path-to-icon.png', // You can add an icon if desired
+    });
+  };
 
   // Function to upload image to S3 and return its URL
   const uploadToS3 = async (file: File): Promise<string> => {
@@ -60,6 +96,9 @@ const MedList: React.FC = () => {
       const newTasks = generateMedicationTasks(prescriptionData);
       setTasks((prevTasks) => [...prevTasks, ...newTasks]); // Update tasks with new tasks
       setLoading(false);
+
+      // Schedule notifications for the new tasks
+      scheduleNotifications(newTasks);
     } catch (error) {
       console.error('Error processing image:', error);
       setLoading(false);
@@ -68,19 +107,12 @@ const MedList: React.FC = () => {
 
   // Function to generate tasks from the prescription data
   const generateMedicationTasks = (prescriptionData: any) => {
-    console.log('Prescription data:', prescriptionData);
     const { drug_name, strength, dosage_schedule } = prescriptionData;
-    console.log('Drug Name:', drug_name);
-    console.log('Strength:', strength);
-    console.log('Dosage Schedule:', dosage_schedule);
-    // Parse the dosage schedule (it's a string of array format)
     const dosageTimes = JSON.parse(dosage_schedule); // Convert to array
-    console.log('Dosage times:', dosageTimes);
+
     // Generate tasks based on dosage schedule
     const tasks = dosageTimes.map((dosageTime: string) => {
       const dosageDate = new Date(dosageTime); // Convert string to Date object
-      
-
       return {
         id: dosageTime, // Use dosageTime as a unique identifier
         drug_name,
@@ -89,8 +121,6 @@ const MedList: React.FC = () => {
         completed: false,
       };
     });
-
-    console.log('Tasks:', tasks);
 
     return tasks;
   };
@@ -119,6 +149,10 @@ const MedList: React.FC = () => {
   const handleCloseAlert = () => {
     setShowAlert(false);
   };
+
+  useEffect(() => {
+    requestNotificationPermission();
+  }, []);
 
   return (
     <div className="container mt-4">
