@@ -1,0 +1,17 @@
+blinker==1.8.2
+click==8.1.7
+Flask==3.0.3
+Flask-Cors==5.0.0
+Flask-MySQL==1.5.2
+Flask-MySQLdb==2.0.0
+Flask-SQLAlchemy==3.1.1
+itsdangerous==2.2.0
+Jinja2==3.1.4
+MarkupSafe==2.1.5
+mysqlclient==2.2.4
+PyMySQL==1.1.1
+setuptools==75.1.0
+SQLAlchemy==2.0.35
+typing_extensions==4.12.2
+Werkzeug==3.0.4
+wheel==0.44.0
